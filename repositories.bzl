@@ -48,20 +48,20 @@ _gomplate_binary = repository_rule(
     attrs = {
         "darwin": attr.string_dict(
             default = {
-                "sha256": "04a6b6d3a9d67fc56428a4571131f52dd3cc2cedb6ed8e9776db77bff0a72b5b",
-                "url": "https://github.com/hairyhenderson/gomplate/releases/download/v3.6.0/gomplate_darwin-amd64-slim",
+                "sha256": "e5e5d87f9298542f9717ab66ca07d9abf0b4721fde7238c0d6af8b17b414deb4",
+                "url": "https://github.com/hairyhenderson/gomplate/releases/download/v4.3.1/gomplate_darwin-amd64",
             },
         ),
         "linux": attr.string_dict(
             default = {
-                "sha256": "0867b2d6b23c70143a4ea37705d4308d051317dd0532d7f3063acec21f6cbbc8",
-                "url": "https://github.com/hairyhenderson/gomplate/releases/download/v3.6.0/gomplate_linux-amd64-slim",
+                "sha256": "9f6c008a8ffa2574ce404acd31dd4efbdbde7aeaa867f0b8fd8dccd298cd282e",
+                "url": "https://github.com/hairyhenderson/gomplate/releases/download/v4.3.1/gomplate_linux-amd64",
             },
         ),
         "windows": attr.string_dict(
             default = {
-                "sha256": "21c8b8c4a033d212effa660a17da68e3f64af8ab1748b8cc62ef2952182c635e",
-                "url": "https://github.com/hairyhenderson/gomplate/releases/download/v3.6.0/gomplate_windows-amd64-slim.exe",
+                "sha256": "1bcd40bc3e181c0bc7287881192025cf49e77f51e0761c941809a467aa81ded7",
+                "url": "https://github.com/hairyhenderson/gomplate/releases/download/v4.3.1/gomplate_windows-amd64.exe",
             },
         ),
     },

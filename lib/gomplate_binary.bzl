@@ -23,6 +23,12 @@ def _gomplate_binary_impl(ctx):
     arguments.add("--file", ctx.file.template)
     arguments.add("--out", output)
 
+    if ctx.file.config:
+        arguments.add("--config", ctx.file.config)
+
+    if ctx.attr.experimental:
+        arguments.add("--experimental")
+
     for datasource, name in ctx.attr.datasources.items():
         files = datasource[DefaultInfo].files.to_list()
         if len(files) != 1:
@@ -33,6 +39,19 @@ def _gomplate_binary_impl(ctx):
             "{name}={datasource}".format(
                 name = name,
                 datasource = file.path,
+            ),
+        )
+
+    for context, name in ctx.attr.context.items():
+        files = context[DefaultInfo].files.to_list()
+        if len(files) != 1:
+            fail("Target passed as context cannot contain more than 1 file")
+        file = files[0]
+        arguments.add(
+            "--context",
+            "{name}={context}".format(
+                name = name if len(name) > 0 else ".", # '.' add to context without prefix
+                context = file.path,
             ),
         )
 
@@ -102,6 +121,10 @@ gomplate_binary = rule(
         ),
         "datasources": attr.label_keyed_string_dict(
             allow_files = True,
+            doc = "A set of 'file: name' datasources to be passed in default context to gomplate",
+        ),
+        "context": attr.label_keyed_string_dict(
+            allow_files = True,
             doc = "A set of 'file: name' datasources to be passed to gomplate",
         ),
         "left_delim": attr.string(
@@ -116,6 +139,14 @@ gomplate_binary = rule(
             allow_single_file = True,
             doc = "The template to be rendered using gomplate",
             mandatory = True,
+        ),
+        "experimental": attr.bool(
+            default = False,
+            doc = "Enable experimental features",
+        ),
+        "config": attr.label(
+            allow_single_file = True,
+            doc = "A file to be used as a gomplate config file",
         ),
         "tools": attr.label_list(
             doc = "A list of executable tools to be used at runtime",
