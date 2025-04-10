@@ -28,7 +28,7 @@ def _download_impl(ctx):
 
     ctx.template(
         "BUILD",
-        Label("@rules_gomplate//gomplate/toolchains/gomplate:gomplate.toolchain.tpl"),
+        Label("@rules_gomplate//gomplate/toolchains/gomplate:BUILD.toolchain.tpl"),
         executable = False,
         substitutions = {
             "{version}": ctx.attr.version,
@@ -37,6 +37,7 @@ def _download_impl(ctx):
         },
     )
 
+    # Downloads gomplate according to attributes
     url_template = "https://github.com/hairyhenderson/gomplate/releases/download/v{version}/gomplate_{os}-{arch}"
     url = url_template.format(version = ctx.attr.version, os = ctx.attr.os, arch = ctx.attr.arch)
 
@@ -46,6 +47,8 @@ def _download_impl(ctx):
         output = "gomplate",
      ):
         fail("could not dl toolchain")
+
+    ctx.execute(["chmod", "+x", "gomplate"])
 
     return {
         "version": ctx.attr.version,
