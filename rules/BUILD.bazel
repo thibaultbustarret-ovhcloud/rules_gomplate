@@ -1,0 +1,6 @@
+load("//gomplate:def.bzl", "BZL_FILES")
+
+exports_files(glob(
+    ["**/*"],
+    exclude = BZL_FILES,
+))

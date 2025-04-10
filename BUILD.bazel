@@ -13,3 +13,14 @@
 # limitations under the License.
 
 package(default_visibility = ["//visibility:public"])
+
+load("@rules_gomplate//gomplate:toolchains.bzl", "register_toolchains")
+
+register_toolchains()
+
+filegroup(
+    name = "binary",
+    srcs = [
+     "@rules_gomplate//:toolchain_type",
+    ],
+)
